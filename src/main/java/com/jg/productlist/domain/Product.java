@@ -3,6 +3,7 @@ package com.jg.productlist.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Data
 @Entity
@@ -16,5 +17,4 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
-
 }

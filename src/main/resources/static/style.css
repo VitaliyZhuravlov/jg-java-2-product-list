@@ -2,6 +2,7 @@ input[type=text] {
     border: 2px solid red;
     border-radius: 4px;
 }
+
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #4CAF50;
     border: none;
@@ -23,6 +24,7 @@ a:link, a:visited {
     display: inline-block;
     -webkit-transition: background-color 3s ease-out;
 }
+
 a:hover, a:active {
     background-color: blue;
 }
