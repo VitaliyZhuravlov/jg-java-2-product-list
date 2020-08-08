@@ -1,0 +1,30 @@
+input[type=text] {
+    border: 2px solid red;
+    border-radius: 4px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+table, th, td {
+    border: 1px solid black;
+}
+a:link, a:visited {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    -webkit-transition: background-color 3s ease-out;
+}
+
+a:hover, a:active {
+    background-color: blue;
+}

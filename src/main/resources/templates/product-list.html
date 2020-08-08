@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Products list page</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div th:switch="${products}">
     <h2 th:case="null">No products found!</h2>
     <div th:case="*">
-        <h2>Products</h2>
+        <h1>Products list</h1>
         <table>
             <thead>
             <tr>
