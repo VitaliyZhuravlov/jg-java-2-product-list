@@ -3,14 +3,13 @@ package com.jg.productlist.controller;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ProductController {
@@ -64,4 +63,14 @@ public class ProductController {
         productService.deleteById(id);
         return "redirect:/product-list";
   }
+
+    @GetMapping("/products")
+    public String findByKeyword(Model model, String keyword){
+        if(keyword !=null){
+            model.addAttribute("products",productService.findByKeyword(keyword));
+        } else {
+            model.addAttribute("products",productService.findAll());
+        }
+        return "product-list";
+    }
 }
