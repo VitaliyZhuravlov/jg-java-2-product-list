@@ -1,15 +1,12 @@
 package com.jg.productlist.service;
-
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class ProductService {
-
     private final ProductRepository productRepository;
 
     @Autowired
