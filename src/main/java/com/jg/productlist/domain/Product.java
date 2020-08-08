@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "products")
 public class Product {
 
     @Id
