@@ -1,11 +1,14 @@
 package com.jg.productlist.domain;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
-
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import javax.persistence.*;
-import java.util.Optional;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 @Entity
 @Table(name = "products")
 public class Product {
@@ -17,4 +20,5 @@ public class Product {
     private String name;
     @Column(name = "description")
     private String description;
+
 }

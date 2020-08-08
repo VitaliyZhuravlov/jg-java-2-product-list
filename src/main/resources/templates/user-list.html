@@ -6,15 +6,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a href="/">Menu</a>
-<a href="/products">Product list</a>
 <div th:switch="${users}">
     <h2 th:case="null">No users found!</h2>
     <div th:case="*">
         <h1>Users list</h1>
         <p>Find user by id</p>
         <form th:action="@{/users}" method="get">
-            <input id="txtSearch" type="text" name="id">
+            <input id="txtSearch" type="text" name="keyword">
             <button type="submit">Find</button>
         </form>
         <br>
