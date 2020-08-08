@@ -21,7 +21,10 @@
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Price</th>
+                <th>Discount</th>
                 <th>Description</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -29,7 +32,10 @@
             <tr th:each="product : ${products}">
                 <td th:text="${product.id}"></td>
                 <td th:text="${product.name}"></td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.discount}">%</td>
                 <td th:text="${product.description}"></td>
+                <td th:text="${product.category}"></td>
                 <td><a th:href="@{product-update/{id}(id=${product.id})}">Edit</a></td>
                 <td><a th:href="@{product-delete/{id}(id=${product.id})}">Delete</a></td>
             </tr>
