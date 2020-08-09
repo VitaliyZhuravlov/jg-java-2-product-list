@@ -1,21 +1,24 @@
 package com.jg.productlist.service;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.jg.productlist.service.validation.ProductValidationService;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ProductValidationService productValidationService;
 
-    @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          ProductValidationService productValidationService) {
         this.productRepository = productRepository;
+        this.productValidationService = productValidationService;
     }
 
     public Product findById(Long id){
-        return productRepository.getOne(id);
+        return productRepository.findProductById(id);
     }
 
     public List<Product> findAll(){
@@ -23,15 +26,17 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product){
+        productValidationService.validate(product);
         return productRepository.save(product);
     }
 
-    public void deleteById(Long id){
-        productRepository.deleteById(id);
+    public void update(Product product){
+        productValidationService.validate(product);
+        productRepository.update(product);
     }
 
-    public List<Product> findByKeyword(String keyword){
-        return productRepository.findByKeyword(keyword);
+    public void delete(Long id){
+        productRepository.delete(id);
     }
 
 }
