@@ -20,6 +20,6 @@ public class ProductNameValidationRule implements ProductValidationRule {
         }
         if (product.getName().length() >= 32) {
             throw new IllegalArgumentException(ValidationExceptionMessages.LONG_NAME_VALIDATION_MSG);
-        }
+            }
         }
     }

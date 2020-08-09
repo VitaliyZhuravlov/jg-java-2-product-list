@@ -4,7 +4,6 @@ import com.jg.productlist.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Controller
@@ -53,5 +52,4 @@ public class ProductController {
         productService.delete(id);
         return "redirect:/product-list";
   }
-
 }

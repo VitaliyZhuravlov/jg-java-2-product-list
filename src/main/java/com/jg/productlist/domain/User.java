@@ -22,13 +22,4 @@ public class User {
     private Long id;
     @Column(name = "username")
     private String username;
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                '}';
-    }
 }

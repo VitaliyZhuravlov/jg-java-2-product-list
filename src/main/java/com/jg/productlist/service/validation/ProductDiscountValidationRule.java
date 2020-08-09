@@ -1,7 +1,6 @@
 package com.jg.productlist.service.validation;
 import com.jg.productlist.domain.Product;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 
 @Component
