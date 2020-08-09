@@ -1,8 +1,10 @@
 package com.jg.productlist.service.validation;
 
 public class ValidationExceptionMessages {
-    private ValidationExceptionMessages(){
+    private ValidationExceptionMessages() {
     }
+
+    public static final String UNIQUE_NAME_VALIDATION_MSG = "Product name should be unique.";
     public static final String SHORT_NAME_VALIDATION_MSG = "Name is too short";
     public static final String LONG_NAME_VALIDATION_MSG = "Name is too long";
     public static final String PRICE_VALIDATION_MSG = "Please enter a positive price!";

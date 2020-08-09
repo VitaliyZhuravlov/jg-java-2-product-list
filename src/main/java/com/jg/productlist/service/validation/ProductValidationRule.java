@@ -1,4 +1,6 @@
 package com.jg.productlist.service.validation;
+
+
 import com.jg.productlist.domain.Product;
 
 public interface ProductValidationRule {

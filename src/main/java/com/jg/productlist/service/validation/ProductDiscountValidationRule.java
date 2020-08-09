@@ -1,6 +1,7 @@
 package com.jg.productlist.service.validation;
 import com.jg.productlist.domain.Product;
 import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 
 @Component
@@ -13,5 +14,6 @@ public class ProductDiscountValidationRule implements ProductValidationRule {
         if (product.getDiscount().compareTo(BigDecimal.ZERO) < 0){
             throw new NumberFormatException(ValidationExceptionMessages.NEGATIVE_DISCOUNT_VALIDATION_MSG);
         }
-    }
+
+}
 }
