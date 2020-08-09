@@ -1,5 +1,4 @@
 package com.jg.productlist.repository;
-import com.jg.productlist.domain.Product;
 import com.jg.productlist.domain.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -35,7 +34,7 @@ public class HibernateUserRepository implements UserRepository {
     @Override
     public void delete(Long id) {
         User user = sessionFactory.getCurrentSession().find(User.class, id);
-        sessionFactory.getCurrentSession().delete(id);
+        sessionFactory.getCurrentSession().delete(user);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.jg.productlist.repository;
 import com.jg.productlist.domain.Product;
 import java.util.List;
-import java.util.Optional;
 
 public interface ProductRepository {
 
@@ -14,5 +13,4 @@ public interface ProductRepository {
     void update(Product product);
 
     List<Product> findAll();
-
 }
