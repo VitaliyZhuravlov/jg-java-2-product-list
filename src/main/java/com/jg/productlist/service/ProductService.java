@@ -1,7 +1,8 @@
 package com.jg.productlist.service;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
-import com.jg.productlist.service.validation.ProductValidationService;
+import com.jg.productlist.validation.ProductNotFoundException;
+import com.jg.productlist.validation.ProductValidationService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -17,8 +18,8 @@ public class ProductService {
         this.productValidationService = productValidationService;
     }
 
-    public Product findById(Long id){
-        return productRepository.findProductById(id);
+    public Optional<Product> findById(Long id){
+        return productRepository.findById(id);
     }
 
     public List<Product> findAll(){
@@ -32,10 +33,14 @@ public class ProductService {
 
     public void update(Product product){
         productValidationService.validate(product);
-        productRepository.update(product);
+        productRepository.save(product);
     }
 
     public void delete(Long id){
-        productRepository.delete(id);
+        productRepository.deleteById(id);
     }
+
+   public List<Product> findByKeyword(String keyword){
+        return productRepository.findByKeyword(keyword);
+   }
 }

@@ -1,15 +1,14 @@
 package com.jg.productlist.config;
-import org.apache.commons.dbcp2.BasicDataSource;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
@@ -22,53 +21,46 @@ import java.util.Properties;
 public class AppConfig {
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    @Bean
-    public DataSource dataSource(
-            @Value("${spring.datasource.url}") String jdbcUrl,
-            @Value("${spring.datasource.driver-class-name}") String driverClass,
-            @Value("${spring.datasource.username}") String userName,
-            @Value("${spring.datasource.password}") String password) {
-        BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl(jdbcUrl);
-        dataSource.setDriverClassName(driverClass);
-        dataSource.setUsername(userName);
-        dataSource.setPassword(password);
+    public DataSource dataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setUrl("jdbc:mysql://localhost/productsdb?useUnicode=true&serverTimezone=UTC");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        dataSource.setUsername("root");
+        dataSource.setPassword("root");
         return dataSource;
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
-    }
-
-    @Bean
-    public Properties hibernateProperties(
-            @Value("${spring.jpa.database-platform}") String dialect){
-
+    public Properties additionalProperties(){
         Properties properties = new Properties();
-        properties.put("spring.jpa.database-platform", dialect);
+        properties.put("spring.jpa.database-platform", "org.hibernate.dialect.MySQL8Dialect");
+        properties.put("spring.jpa.hibernate.ddl-auto", "true");
+        properties.put("spring.jpa.show-sql" , "false");
+        properties.put("spring.jpa.properties.hibernate.format_sql" , "true");
         return properties;
     }
 
     @Bean
-    public SessionFactory sessionFactory(DataSource dataSource,
-                                         @Value("com.jg.productlist") String packagesToScan,
-                                         Properties hibernateProperties) throws Exception {
-
-        LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
-        sessionFactoryBean.setDataSource(dataSource);
-        sessionFactoryBean.setPackagesToScan(packagesToScan);
-        sessionFactoryBean.setHibernateProperties(hibernateProperties);
-        sessionFactoryBean.afterPropertiesSet();
-        return sessionFactoryBean.getObject();
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
+        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan(new String[]{"com.jg.productlist"});
+        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
+        return em;
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager(SessionFactory sessionFactory) {
-        return new HibernateTransactionManager(sessionFactory);
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(entityManagerFactory().getObject());
+        return transactionManager;
     }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
+        return new PersistenceExceptionTranslationPostProcessor();
+    }
+
 }

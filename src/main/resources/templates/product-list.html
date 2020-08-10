@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Products list page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+<a href="/">Greeting page</a>
 <div th:switch="${products}">
     <h2 th:case="null">No products found!</h2>
     <div th:case="*">
