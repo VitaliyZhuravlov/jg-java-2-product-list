@@ -1,14 +1,10 @@
 package com.jg.productlist.domain;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "products")
 public class Product {
 
@@ -26,6 +22,18 @@ public class Product {
     private String description;
     @Column(name = "category")
     private String category;
+
+    public Product() {
+    }
+
+    public Product(Long id, String name, BigDecimal price, BigDecimal discount, String description, String category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.discount = discount;
+        this.description = description;
+        this.category = category;
+    }
 
     public Long getId() {
         return id;

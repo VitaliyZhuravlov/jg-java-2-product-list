@@ -47,10 +47,16 @@ public class AppConfig {
 
     @Bean
     public Properties hibernateProperties(
-            @Value("${spring.jpa.database-platform}") String dialect){
-
+            @Value("${spring.jpa.database-platform}") String dialect,
+            @Value("${spring.jpa.hibernate.ddl-auto}") String ddl,
+            @Value("${spring.jpa.show-sql}") Boolean showSql,
+            @Value("${spring.jpa.properties.hibernate.format_sql}") Boolean formatSql
+            ){
         Properties properties = new Properties();
         properties.put("spring.jpa.database-platform", dialect);
+        properties.put("spring.jpa.hibernate.ddl-auto", ddl);
+        properties.put("spring.jpa.show-sql" , showSql);
+        properties.put("spring.jpa.properties.hibernate.format_sql" , formatSql);
         return properties;
     }
 
@@ -58,7 +64,6 @@ public class AppConfig {
     public SessionFactory sessionFactory(DataSource dataSource,
                                          @Value("com.jg.productlist") String packagesToScan,
                                          Properties hibernateProperties) throws Exception {
-
         LocalSessionFactoryBean sessionFactoryBean = new LocalSessionFactoryBean();
         sessionFactoryBean.setDataSource(dataSource);
         sessionFactoryBean.setPackagesToScan(packagesToScan);

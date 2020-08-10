@@ -1,5 +1,4 @@
 package com.jg.productlist.service;
-import com.jg.productlist.domain.Product;
 import com.jg.productlist.domain.User;
 import com.jg.productlist.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User findUserById(Long userId) {
-        return userRepository.findUserById(userId);
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
     }
 
     public void update(User user){

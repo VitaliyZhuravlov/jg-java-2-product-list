@@ -1,10 +1,10 @@
 package com.jg.productlist.service;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
-import com.jg.productlist.service.validation.ProductValidationService;
+import com.jg.productlist.validation.ProductNotFoundException;
+import com.jg.productlist.validation.ProductValidationService;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -37,5 +37,13 @@ public class ProductService {
 
     public void delete(Long id){
         productRepository.delete(id);
+    }
+
+    public Product findByName(String name){
+        Product product = productRepository.findByName(name);
+        if (product == null) {
+            throw new ProductNotFoundException("Not found" + name);
+        }
+        return product;
     }
 }

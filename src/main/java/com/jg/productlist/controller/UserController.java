@@ -17,7 +17,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user-list")
+    @GetMapping("/users")
     public String findAll(Model model){
         List<User> users = userService.findAll();
         model.addAttribute("users",users);
@@ -32,7 +32,7 @@ public class UserController {
     @PostMapping("/user-create")
     public String createUser(User user){
        userService.save(user);
-        return "redirect:/user-list";
+        return "redirect:/users";
     }
 
     @GetMapping("/user-update/{id}")
@@ -45,14 +45,20 @@ public class UserController {
     @PostMapping("/user-update")
     public String updateUser(User user){
         userService.update(user);
-        return "redirect:/user-list";
+        return "redirect:/users";
     }
 
     @GetMapping("user-delete/{id}")
     public String delete(@PathVariable("id") Long id,Model model) {
         User user = userService.findUserById(id);
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         userService.delete(id);
-        return "redirect:/product-list";
+        return "redirect:/users";
+    }
+
+    @GetMapping("/users/{id}")
+    public String findById(Model model,@PathVariable Long id){
+        model.addAttribute("users", userService.findUserById(id));
+        return "user-list";
     }
 }
