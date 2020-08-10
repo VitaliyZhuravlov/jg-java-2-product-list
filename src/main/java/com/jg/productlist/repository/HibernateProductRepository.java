@@ -2,6 +2,7 @@ package com.jg.productlist.repository;
 import com.jg.productlist.domain.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -50,5 +51,13 @@ public class HibernateProductRepository implements ProductRepository {
         Root<Product> root = query.from(Product.class);
         query.select(root);
         return currentSession.createQuery(query).getResultList();
+    }
+
+    @Override
+    public Product findByName(String name) {
+       Product product = (Product) sessionFactory.getCurrentSession().createCriteria(Product.class)
+               .add(Restrictions.eq("name", name))
+               .uniqueResult();
+       return product;
     }
 }
