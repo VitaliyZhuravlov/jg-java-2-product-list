@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User list page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="/">Menu</a>
+<a href="/products">Product list</a>
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h1>Users list</h1>
+        <p>Find user by id</p>
+        <form th:action="@{/users}" method="get">
+            <input id="txtSearch" type="text" name="id">
+            <button type="submit">Find</button>
+        </form>
+        <br>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/user-create">Create</a></p>
+</div>
+</body>
+</html>

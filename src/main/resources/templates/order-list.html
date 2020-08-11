@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table class ="center">
+    <thead>
+    <tr>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="response : ${response}">
+        <td th:text="${response.id}"></td>
+        <td th:text="${response.username}"></td>
+        <td th:text="${response.products}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
