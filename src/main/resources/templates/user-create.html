@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
 <form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
     <label for="username">Name</label>
     <input type="text" th:field="*{username}" id="username" placeholder="username">

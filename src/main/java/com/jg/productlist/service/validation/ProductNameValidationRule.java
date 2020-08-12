@@ -1,4 +1,4 @@
-package com.jg.productlist.validation;
+package com.jg.productlist.service.validation;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
 import org.springframework.stereotype.Component;

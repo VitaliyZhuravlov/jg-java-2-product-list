@@ -1,4 +1,4 @@
-package com.jg.productlist.validation;
+package com.jg.productlist.service.validation;
 
 public class ValidationExceptionMessages {
     private ValidationExceptionMessages(){

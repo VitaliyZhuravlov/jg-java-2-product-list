@@ -1,4 +1,4 @@
-package com.jg.productlist.validation;
+package com.jg.productlist.service.validation;
 
 public class ProductValidationException extends RuntimeException {
     public ProductValidationException(String message) {

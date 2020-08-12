@@ -1,8 +1,7 @@
 package com.jg.productlist.service;
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
-import com.jg.productlist.validation.ProductNotFoundException;
-import com.jg.productlist.validation.ProductValidationService;
+import com.jg.productlist.service.validation.ProductValidationService;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;

@@ -8,6 +8,7 @@
 </head>
 <body>
 <a href="/">Greeting page</a>
+<a href="/users">User list</a>
 <div th:switch="${products}">
     <h2 th:case="null">No products found!</h2>
     <div th:case="*">
@@ -27,6 +28,7 @@
                 <th>Discount</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>UserInfo</th>
                 <th>Actions</th>
             </tr>
             </thead>

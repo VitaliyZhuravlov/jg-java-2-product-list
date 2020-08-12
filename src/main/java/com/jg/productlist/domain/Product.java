@@ -1,16 +1,18 @@
 package com.jg.productlist.domain;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@ToString
+@NoArgsConstructor
 @Table(name = "products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
     @Column(name = "name")
     private String name;
@@ -22,9 +24,6 @@ public class Product {
     private String description;
     @Column(name = "category")
     private String category;
-
-    public Product() {
-    }
 
     public Product(Long id, String name, BigDecimal price, BigDecimal discount, String description, String category) {
         this.id = id;
@@ -83,4 +82,15 @@ public class Product {
         this.category = category;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", discount=" + discount +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }
