@@ -1,35 +1,47 @@
 package com.jg.productlist.service;
 import com.jg.productlist.domain.User;
 import com.jg.productlist.repository.UserRepository;
+import com.jg.productlist.service.validation.ProductNotFoundException;
+import com.jg.productlist.service.validation.UserNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepository repository;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository) {
+        this.repository = repository;
     }
 
-    public User findById(Long id){
-        return userRepository.findById(id).orElse(null);
+    public User create(User user) {
+        return repository.save(user);
     }
 
-    public List<User> findAll(){
-        return userRepository.findAll();
+    public List<User> findAllUsers() {
+        return repository.findAll();
     }
 
-    public User save(User user){
-        return userRepository.save(user);
+    public User findUserById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("User not found, id = " + id));
     }
 
-    public void update(User user){
-        userRepository.save(user);
+    public User findUserByName(String username) {
+        return repository.findByName(username);
     }
 
-    public void delete(Long id){
-        userRepository.deleteById(id);
+    public String delete(Long id) {
+        repository.deleteById(id);
+        return "Successfully deleted" + id;
+    }
+
+    public User updateUser(User user) {
+        User newUserDetails = repository.findById(user.getId())
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+        newUserDetails.setUsername(user.getUsername());
+        return repository.save(newUserDetails);
     }
 }

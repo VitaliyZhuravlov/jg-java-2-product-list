@@ -1,4 +1,5 @@
 package com.jg.productlist.domain;
+
 import javax.persistence.*;
 
 @Entity
@@ -6,10 +7,9 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
     private Long id;
-    @Column(name = "username")
     private String username;
 
     public User() {

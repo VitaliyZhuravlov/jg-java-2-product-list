@@ -2,58 +2,46 @@ package com.jg.productlist.controller;
 
 import com.jg.productlist.domain.User;
 import com.jg.productlist.service.UserService;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserService service;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
-    @GetMapping("/users")
-    public String findAll(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "user-list";
+    @PostMapping("/create")
+    public User create(@RequestBody User user) {
+        return service.create(user);
     }
 
-    @GetMapping("/user-create")
-    public String createUserForm(User user) {
-        return "user-create";
+    @GetMapping("/findAllUsers")
+    public List<User> findAllUsers() {
+        return service.findAllUsers();
     }
 
-    @PostMapping("/user-create")
-    public String createUser(User user) {
-        userService.save(user);
-        return "redirect:/users";
+    @GetMapping("/findById/{id}")
+    public User findUserById(@PathVariable Long id) {
+        return service.findUserById(id);
     }
 
-    @GetMapping("/user-update/{id}")
-    public String updateUserForm(@PathVariable("id") Long userId, Model model) {
-        User user = userService.findById(userId);
-        model.addAttribute("user", user);
-        return "user-update";
+    @GetMapping("/user/{username}")
+    public User findUserByName(@PathVariable String username) {
+        return service.findUserByName(username);
     }
 
-    @PostMapping("/user-update")
-    public String updateUser(User user) {
-        userService.update(user);
-        return "redirect:/users";
+    @PutMapping("/update")
+    public User update(@RequestBody User user) {
+        return service.updateUser(user);
     }
 
-    @GetMapping("user-delete/{id}")
-    public String delete(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        userService.delete(id);
-        return "redirect:/users";
+    @DeleteMapping("/delete/{id}")
+    public String delete(@PathVariable Long id) {
+        return service.delete(id);
     }
 }

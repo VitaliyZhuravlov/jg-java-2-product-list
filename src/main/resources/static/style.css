@@ -1,6 +1,15 @@
 input[type=text] {
     border: 2px solid red;
-    border-radius: 4px;
+    border-radius: 10px;
+}
+button{
+    background-color: #f44336;
+    border: none;
+    padding: 10px 20px;
+    -webkit-transition: background-color 2s ease-out;
+}
+button:hover{
+    background-color: blue;
 }
 input[type=button], input[type=submit], input[type=reset] {
     background-color: #4CAF50;

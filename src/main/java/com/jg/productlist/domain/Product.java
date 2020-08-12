@@ -1,18 +1,12 @@
 package com.jg.productlist.domain;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@NoArgsConstructor
 @Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name")
     private String name;
@@ -32,6 +26,9 @@ public class Product {
         this.discount = discount;
         this.description = description;
         this.category = category;
+    }
+
+    public Product() {
     }
 
     public Long getId() {

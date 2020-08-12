@@ -1,45 +1,50 @@
 package com.jg.productlist.service;
+
 import com.jg.productlist.domain.Product;
 import com.jg.productlist.repository.ProductRepository;
-import com.jg.productlist.service.validation.ProductValidationService;
+import com.jg.productlist.service.validation.ProductNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProductService {
-    private final ProductRepository productRepository;
-    private final ProductValidationService productValidationService;
 
-    public ProductService(ProductRepository productRepository,
-                          ProductValidationService productValidationService) {
-        this.productRepository = productRepository;
-        this.productValidationService = productValidationService;
+    private final ProductRepository repository;
+
+    public ProductService(ProductRepository repository) {
+        this.repository = repository;
     }
 
-    public Optional<Product> findById(Long id){
-        return productRepository.findById(id);
+    public Product save(Product product) {
+        return repository.save(product);
     }
 
-    public List<Product> findAll(){
-        return productRepository.findAll();
+    public List<Product> getProducts() {
+        return repository.findAll();
     }
 
-    public Product saveProduct(Product product){
-        productValidationService.validate(product);
-        return productRepository.save(product);
+    public Product getProductById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ProductNotFoundException("Product not found, id=" + id));
     }
 
-    public void update(Product product){
-        productValidationService.validate(product);
-        productRepository.save(product);
+    public Product getProductByName(String name) {
+        return repository.findByName(name);
     }
 
-    public void delete(Long id){
-        productRepository.deleteById(id);
+    public String deleteProduct(Long id) {
+        repository.deleteById(id);
+        return "Successfully deleted" + id;
     }
 
-   public List<Product> findByKeyword(String keyword){
-        return productRepository.findByKeyword(keyword);
-   }
+    public Product updateProduct(Product product) {
+        Product existingProduct = repository.findById(product.getId())
+                .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setDiscount(product.getDiscount());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setCategory(product.getCategory());
+        return repository.save(existingProduct);
+    }
 }
